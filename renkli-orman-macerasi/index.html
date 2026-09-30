@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Renkli Orman Macerası - Minik Tilki</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="game-container">
+        <!-- Top Bar Header -->
+        <header id="top-bar">
+            <button id="btn-home" class="icon-btn" title="Harita" onclick="game.showMap()">
+                🏠
+            </button>
+            <div id="leaf-counter">
+                <span class="leaf-icon">🍃</span>
+                <span id="leaf-count">0</span> / 10
+            </div>
+            <div class="top-right">
+                <button id="btn-sound" class="icon-btn" onclick="audioManager.toggleSound()">
+                    🔊
+                </button>
+                <button id="btn-parent" class="icon-btn" title="Ebeveyn Alanı" onclick="game.openParentGate()">
+                    ⚙️
+                </button>
+            </div>
+        </header>
+
+        <!-- Screens Container -->
+        <main id="screens">
+            <!-- 1. Start Screen -->
+            <section id="screen-splash" class="screen active">
+                <div class="splash-content">
+                    <div class="hero-character" id="fox-avatar"></div>
+                    <h1 class="game-title">Renkli Orman Macerası</h1>
+                    <p class="subtitle">Minik Tilki ile Keşfet ve Öğren!</p>
+                    <button class="btn-primary" onclick="game.startPlay()">
+                        <span class="play-icon">▶</span> OYNA
+                    </button>
+                </div>
+            </section>
+
+            <!-- 2. Forest Map Screen -->
+            <section id="screen-map" class="screen">
+                <h2 class="map-title">Orman Haritası</h2>
+                <p class="map-hint">Oynamak istediğin bir durağa dokun!</p>
+                <div class="map-grid" id="map-nodes">
+                    <!-- Dynamic map nodes created by JS -->
+                </div>
+            </section>
+
+            <!-- 3. Level Screen -->
+            <section id="screen-level" class="screen">
+                <div class="level-header">
+                    <span id="level-badge" class="badge">Bölüm 1</span>
+                    <h2 id="level-title">Görevin Adı</h2>
+                </div>
+                <div class="voice-instruction-bar">
+                    <button class="btn-voice" onclick="game.repeatInstruction()">
+                        🔊 <span id="instruction-text">Yönerge buraya gelecek</span>
+                    </button>
+                </div>
+
+                <div id="level-play-area" class="play-area">
+                    <!-- Interactive level content injected dynamically -->
+                </div>
+            </section>
+
+            <!-- 4. Victory / Level Complete Modal Screen -->
+            <div id="modal-victory" class="modal">
+                <div class="modal-card">
+                    <div class="stars-animation">🎉 🍃 ✨</div>
+                    <h2>Harika İş Başardın!</h2>
+                    <p id="victory-message">Bir yaprak rozeti kazandın!</p>
+                    <div class="victory-actions">
+                        <button class="btn-secondary" onclick="game.repeatCurrentLevel()">
+                            🔄 Tekrar Oyna
+                        </button>
+                        <button class="btn-primary" onclick="game.nextLevelOrMap()">
+                            ➡️ Devam Et
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. Parent Gate Modal -->
+            <div id="modal-parent" class="modal">
+                <div class="modal-card parent-card">
+                    <h2>Ebeveyn Alanı</h2>
+                    <p id="parent-gate-question">Lütfen devam etmek için cevabı girin: 3 + 2 = ?</p>
+                    <input type="number" id="parent-answer" placeholder="Cevap" autofocus>
+                    <div class="modal-buttons">
+                        <button class="btn-secondary" onclick="game.closeParentGate()">Vazgeç</button>
+                        <button class="btn-primary" onclick="game.verifyParentGate()">Giriş Yap</button>
+                    </div>
+                    <div id="parent-dashboard" class="hidden">
+                        <h3>Öğrenme İlerlemesi</h3>
+                        <p>Tamamlanan Bölüm Sayısı: <strong id="parent-completed-count">0</strong> / 10</p>
+                        <p>Toplam Yaprak Rozeti: <strong id="parent-leaves-count">0</strong></p>
+                        <hr>
+                        <p class="privacy-note">🔒 Bu oyun çocuklar için %100 güvenlidir. Hiçbir kişisel veri toplanmaz, reklam veya uygulama içi satın alma içermez.</p>
+                        <button class="btn-secondary" onclick="game.resetProgress()">İlerlemeyi Sıfırla</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/audio.js"></script>
+    <script src="js/graphics.js"></script>
+    <script src="js/levels.js"></script>
+    <script src="js/game.js"></script>
+</body>
+</html>
